@@ -2,7 +2,7 @@
 <plugin
 		xmlns="http://apache.org/cordova/ns/plugins/1.0"
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		id="com.hutchind.cordova.plugins.launcher"
+		id="cordova-plugin-launcher"
 		version="0.2.2">
 
 	<name>Launcher</name>
@@ -20,17 +20,6 @@
 	<js-module src="www/Launcher.js" name="Launcher">
 			<clobbers target="plugins.launcher" />
 	</js-module>
-
-	<!-- ios -->
-	<platform name="ios">
-			<config-file target="config.xml" parent="/*">
-				<feature name="Launcher">
-						<param name="ios-package" value="Launcher" />
-				</feature>
-			</config-file>
-			<header-file src="src/ios/Launcher.h" />
-			<source-file src="src/ios/Launcher.m" />
-	</platform>
 
 	<!-- android -->
 	<platform name="android">
