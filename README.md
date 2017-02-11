@@ -1,4 +1,4 @@
-App-Launcher-Cordova-Plugin
+Cordova-plugin-launcher
 ===========================
 
 Simple Cordova plugin to see if other apps are installed and launch them.
@@ -13,20 +13,20 @@ Simple Cordova plugin to see if other apps are installed and launch them.
 
 ## 1. Description
 
-This plugin allows you to check if an app is installed that can handle a specific uri and launch an app via uri on iOS and Android. Additionally, you may open an Android app using its package id.
-* (iOS, Android) Check if any apps are installed that can launch via a specified uri.
-* (iOS, Android) Launch an app via a specified uri.
-* (Android) Check if an app is installed via its package id.
-* (Android) Launch an app via its package id.
-* (Android) Launch an app with extras included.
-* (Android) Return results from a launched app once it is finished.
+This plugin allows you to check if an app is installed that can handle a specific uri and launch an app via uri on Android. Additionally, you may open an Android app using its package id.
+* Check if any apps are installed that can launch via a specified uri.
+* Launch an app via a specified uri.
+* Check if an app is installed via its package id.
+* Launch an app via its package id.
+* Launch an app with extras included.
+* Return results from a launched app once it is finished.
 
 ## 2. Installation
 
 ### Automatically (CLI / Plugman)
 
 ```
-$ cordova plugin add https://github.com/nchutchind/App-Launcher-Cordova-Plugin.git
+$ cordova plugin add cordova-plugin-launcher
 ```
 and then (this step will modify your project):
 ```
@@ -34,17 +34,6 @@ $ cordova prepare
 ```
 
 1\. Add the following xml to your `config.xml`:
-```xml
-<!-- for iOS -->
-<feature name="Launcher">
-	<param name="ios-package" value="Launcher" />
-</feature>
-<!-- 
-Additionally, for iOS 9+, you may need to install the cordova-plugin-queries-schemes plugin, which will allow whitelisting of what URLs your app will be allowed to launch. 
-
-cordova plugin add cordova-plugin-queries-schemes
--->
-```
 ```xml
 <!-- for Android -->
 <feature name="Launcher">
@@ -57,9 +46,7 @@ cordova plugin add cordova-plugin-queries-schemes
 <script type="text/javascript" src="js/Launcher.js"></script>
 ```
 
-3\. Copy the files in `src/` for iOS and/or Android into your project.
-
-iOS: Copy `Launcher.h` and `Launcher.m` to `platforms/ios/<ProjectName>/Plugins`
+3\. Copy the files in `src/` for Android into your project.
 
 Android: Copy `Launcher.java` to `platforms/android/src/com/hutchind/cordova/plugins` (you will probably need to create this path)
 
@@ -72,15 +59,6 @@ Add the following xml to your `config.xml` to always use the latest version of t
 or to use a specific version:
 ```xml
 <gap:plugin name="com.hutchind.cordova.plugins.launcher" version="0.2.2" />
-```
-For iOS 9+, the following may need to be added so that the URLs used to launch apps can be whitelisted (in this example, customSchemeName:// and fb:// would have been the URLs registered to the apps we want to be able to launch):
-```xml
-<gap:config-file platform="ios" parent="LSApplicationQueriesSchemes" overwrite="true">
-    <array>
-        <string>customSchemeName</string>
-        <string>fb</string>
-    </array>
-</gap:config-file>
 ```
 
 ## 3. Usage
@@ -95,27 +73,27 @@ For iOS 9+, the following may need to be added so that the URLs used to launch a
 	}
 ```
 
-Check to see if Facebook can be launched via uri (**iOS** and **Android**)
+Check to see if Facebook can be launched via uri
 ```javascript
 	window.plugins.launcher.canLaunch({uri:'fb://'}, successCallback, errorCallback);
 ```
 
-Check to see if Facebook is installed (**Android**)
+Check to see if Facebook is installed
 ```javascript
 	window.plugins.launcher.canLaunch({packageName:'com.facebook.katana'}, successCallback, errorCallback);
 ```
 
-Launch Facebook to the logged in user's profile (**iOS** and **Android**)
+Launch Facebook to the logged in user's profile
 ```javascript
 	window.plugins.launcher.launch({uri:'fb://profile'}, successCallback, errorCallback);
 ```
 
-Launch Facebook via package id (**Android**)
+Launch Facebook via package id
 ```javascript
 	window.plugins.launcher.launch({packageName:'com.facebook.katana'}, successCallback, errorCallback);
 ```
 
-Check to see if an app is installed that can play NASA TV (**Android**)
+Check to see if an app is installed that can play NASA TV
 ```javascript
 	window.plugins.launcher.canLaunch({
 		uri:'http://www.nasa.gov/multimedia/nasatv/NTV-Public-IPS.m3u8',
@@ -123,7 +101,7 @@ Check to see if an app is installed that can play NASA TV (**Android**)
 	}, successCallback, errorCallback);
 ```
 
-Get a list of installed app packages that can play NASA TV (**Android**)
+Get a list of installed app packages that can play NASA TV
 ```javascript
 	window.plugins.launcher.canLaunch({
 		uri:'http://www.nasa.gov/multimedia/nasatv/NTV-Public-IPS.m3u8',
@@ -132,7 +110,7 @@ Get a list of installed app packages that can play NASA TV (**Android**)
 	}, successCallback, errorCallback);
 ```
 
-Launch NASA TV video stream in MxPlayer Free (**Android**)
+Launch NASA TV video stream in MxPlayer Free
 ```javascript
 	window.plugins.launcher.launch({
 		packageName:'com.mxtech.videoplayer.ad',
@@ -141,7 +119,7 @@ Launch NASA TV video stream in MxPlayer Free (**Android**)
 	}, successCallback, errorCallback);
 ```
 
-Launch MxPlayer Free with Extras for specific videos from the sdcard, specific titles, and starting at 3 seconds in (**Android**)
+Launch MxPlayer Free with Extras for specific videos from the sdcard, specific titles, and starting at 3 seconds in
 ```javascript
 	var sdcard = "file:///sdcard/";
 	var file1 = sdcard + "video1.mp4", file2 = sdcard + "video2.mp4";
@@ -157,7 +135,7 @@ Launch MxPlayer Free with Extras for specific videos from the sdcard, specific t
 		]
 	}, successCallback, errorCallback);
 ```
-Launch MxPlayer Free with Extras for a specific video with title and return results (**Android**)
+Launch MxPlayer Free with Extras for a specific video with title and return results
 ```javascript
 	var filename = "file:///sdcard/video.mp4";
 
@@ -272,7 +250,7 @@ Passes an error message as a string.
 
 0.1.1: Added ability to launch a package with a data uri and datatype on Android.
 
-0.1.0: initial version supporting Android and iOS
+0.1.0: initial version supporting Android
 
 ## 5. Credits
 Special thanks to [@michael1t](https://github.com/michael1t) for sponsoring the development of the Extras portion of this plugin.
